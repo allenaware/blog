@@ -8,9 +8,10 @@ tags:
 categories:
 - tech
 ---
-Ubuntu默认源里的node版本比较老，node的版本更新的特别快，如果大家希望使用更新一点的版本，我个人比较推荐使用预编译二进制包进行安装。
+Ubuntu默认源里的node版本比较老，node的版本更新的特别快，如果希望使用更新一点的版本，比较推荐使用二进制预编译包进行安装,只需要修改环境变量的指向就可以了。
 可以在这里下载到最新的二进制安装包，http://nodejs.cn/download/
-二进制包是使用node源码在特定的平台架构预先编译好了可执行文件，所以要根据自己的机器的架构选择合适的包，不然的话ABI不匹配根本无法运行。我的机器是Ubuntu 14.04 64位，所以我选择Linux 64位,安装步骤如下：
+二进制包是使用node源码在特定的平台架构预先编译好了可执行文件，所以要根据自己的机器的架构选择合适的包，不然的话ABI不匹配根本无法运行。
+我的机器是Ubuntu 14.04 64位，所以我选择Linux 64位,安装步骤如下：
 
 1.下载包
 
@@ -28,17 +29,13 @@ sudo tar xvf node-v8.2.1-linux-x64.tar.xz
 
 3.添加到系统执行路径
 
-把node与npm加入系统路径,默认/usr/local/bin已经在系统路径之中了，所以我们只需要通过创建软链接即可，软连接的好处是以后node版本升级，只需要下载新的二进制包，修改软连接指向的文件位置就可以了。
-
+把node与npm加入系统路径环境变量
 ```shell
-cd /usr/local/bin
-sudo ln -s /usr/local/src/node-v8.2.1-linux-x64/bin/node node
-sudo ln -s /usr/local/src/node-v8.2.1-linux-x64/lib/node_modules/npm/bin/npm-cli.js npm
+vi ~/.bashrc
+export PATH="/usr/local/src/node-v8.2.1-linux-x64/bin:$PATH"
+source ~/.bashrc
 ```
-
-
 4.测试是否安装成功
-
 
 ```shell
 node -v
@@ -47,4 +44,6 @@ npm -v
 5.3.0
 ```
 job done！
+通过npm全局安装的第三方包会放置在你的node-vxxx-linux-x64目录中，没有系统全局的影响。
+如果要更换node的版本只需要再下载新版本的node，修改环境变量就可以了。
 
